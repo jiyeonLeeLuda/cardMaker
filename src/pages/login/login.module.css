@@ -22,4 +22,5 @@
   border: 3px solid makerWhite;
   border-radius: 25%;
   padding: 15px 20px;
+  cursor: pointer;
 }
