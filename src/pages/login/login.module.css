@@ -1,0 +1,25 @@
+@value makerWhite from '../../common/colors.module.css';
+@value makerGreen from '../../common/colors.module.css';
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.loginBox {
+  width: 30rem;
+  background-color: makerGreen;
+  padding: 5rem;
+}
+
+.loginGoogle,
+.loginGithub {
+  display: block;
+  margin: 3rem auto;
+  background: makerGreen;
+  color: makerWhite;
+  font-size: 1rem;
+  border: 3px solid makerWhite;
+  border-radius: 25%;
+  padding: 15px 20px;
+}
