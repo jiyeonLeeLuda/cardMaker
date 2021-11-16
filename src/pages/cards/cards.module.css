@@ -1,0 +1,8 @@
+@value makerWhite from '../../common/colors.module.css';
+
+.cards {
+  width: 90%;
+  background-color: makerWhite;
+  display: flex;
+  flex-direction: column;
+}

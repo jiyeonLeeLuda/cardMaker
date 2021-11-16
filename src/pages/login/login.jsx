@@ -1,26 +1,49 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { loginWithGoogle } from '../../service/firebase/auth';
 
 import styles from './login.module.css';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
 
-const Login = (props) => {
+const Login = ({ authService }) => {
   const navi = useNavigate();
 
-  async function googleLogin() {
-    const res = await loginWithGoogle();
-    if (res) {
-      return navi('/cards');
-    }
+  function login(event) {
+    authService //
+      .login(event.currentTarget.textContent)
+      .then((data) => {
+        console.log(data.user.uid);
+        navi('/cards');
+      });
   }
   return (
     <section className={styles.container}>
-      <div className={styles.loginBox}>
-        <button className={styles.loginGoogle} onClick={googleLogin}>
-          Login with google
-        </button>
-        <button className={styles.loginGithub}>Login with github</button>
-      </div>
+      <Header />
+      <h1>Login</h1>
+      <ul className={styles.list}>
+        <li className={styles.item}>
+          <button
+            className={styles.button}
+            onClick={(e) => {
+              login(e);
+            }}
+          >
+            google
+          </button>
+        </li>
+
+        <li className={styles.item}>
+          <button
+            className={styles.button}
+            onClick={(e) => {
+              login(e);
+            }}
+          >
+            github
+          </button>
+        </li>
+      </ul>
+      <Footer />
     </section>
   );
 };

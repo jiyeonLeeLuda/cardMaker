@@ -25,5 +25,5 @@ yarn-error.log*
 #vscode setting
 .vscode
 
-#firebase config
-src/service/firebase/config.js
+#api Keys
+.env
