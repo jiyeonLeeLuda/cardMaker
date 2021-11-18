@@ -9,7 +9,7 @@ function App({ authService }) {
     <div className={styles.app}>
       <Routes>
         <Route path='/' element={<Login authService={authService} />} />
-        <Route path='/cards' element={<Cards />} />
+        <Route path='/cards' element={<Cards authService={authService} />} />
       </Routes>
     </div>
   );
