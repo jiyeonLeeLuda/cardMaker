@@ -1,8 +1,10 @@
 import {
   getAuth,
+  signOut,
   signInWithPopup,
   GoogleAuthProvider,
   GithubAuthProvider,
+  onAuthStateChanged,
 } from 'firebase/auth';
 
 class AuthService {
@@ -18,32 +20,41 @@ class AuthService {
     // 에러 관리 필요 : google,githun에서 동일한 이메일 주소를 사용하는 경우
     // https://stackoverflow.com/questions/44015751/firebase-js-api-auth-account-exists-with-different-credential
 
-    // try {
-    //   const result = await signInWithPopup(this.auth, provider);
-    //   // This gives you a Google Access Token. You can use it to access the Google API.
-    //   const credential = GoogleAuthProvider.credentialFromResult(result);
-    //   const token = credential.accessToken;
-    //   // The signed-in user info.
-    //   const user = result.user;
+    /*    try {
+      const result = await signInWithPopup(this.auth, provider);
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
 
-    //   console.log(credential);
-    //   console.log(token);
-    //   console.log(user);
-    //   return true;
-    // } catch (error) {
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
+      console.log(credential);
+      console.log(token);
+      console.log(user);
+      return true;
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
 
-    //   const email = error.email;
-    //   const credential = GoogleAuthProvider.credentialFromError(error);
-    //   console.log(
-    //     `로그인 실패 | ${email} | ${credential} | ${errorCode} | ${errorMessage}`
-    //   );
-    //   alert(`로그인 실패 | ${errorCode} `);
-    //   return false;
-    // }
+      const email = error.email;
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      console.log(
+        `로그인 실패 | ${email} | ${credential} | ${errorCode} | ${errorMessage}`
+      );
+      alert(`로그인 실패 | ${errorCode} `);
+      return false;
+    }
+    */
   }
-  logout() {}
+  onAuthChange(onUserChanged) {
+    //https://firebase.google.com/docs/auth/web/start
+    onAuthStateChanged(this.firebaseAuth, (user) => {
+      onUserChanged(user);
+    });
+  }
+  logout() {
+    return signOut(this.firebaseAuth);
+  }
   getProvider(providerName) {
     switch (providerName) {
       case 'google':

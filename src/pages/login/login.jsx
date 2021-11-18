@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 import styles from './login.module.css';
@@ -8,14 +8,28 @@ import Footer from '../../components/footer/footer';
 const Login = ({ authService }) => {
   const navi = useNavigate();
 
-  function login(event) {
+  function goToCards(userId) {
+    navi('/cards', {
+      state: {
+        id: userId,
+      },
+    });
+  }
+
+  function onLogin(event) {
     authService //
       .login(event.currentTarget.textContent)
       .then((data) => {
-        console.log(data.user.uid);
-        navi('/cards');
+        goToCards(data.user.uid);
       });
   }
+
+  useEffect(() => {
+    authService //
+      .onAuthChange((user) => {
+        user && goToCards(user.uid);
+      });
+  });
   return (
     <section className={styles.container}>
       <Header />
@@ -25,7 +39,7 @@ const Login = ({ authService }) => {
           <button
             className={styles.button}
             onClick={(e) => {
-              login(e);
+              onLogin(e);
             }}
           >
             google
@@ -36,7 +50,7 @@ const Login = ({ authService }) => {
           <button
             className={styles.button}
             onClick={(e) => {
-              login(e);
+              onLogin(e);
             }}
           >
             github
