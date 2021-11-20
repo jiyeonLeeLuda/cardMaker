@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
+import Editor from '../../components/card-editor/editor';
+import Preview from '../../components/card-preview/preview';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import styles from './cards.module.css';
@@ -24,7 +26,10 @@ const Cards = ({ authService }) => {
   return (
     <section className={styles.cards}>
       <Header onLogout={onLogout} />
-      <h1>cards</h1>
+      <div className={styles.container}>
+        <Editor />
+        <Preview />
+      </div>
       <Footer />
     </section>
   );

@@ -1,0 +1,11 @@
+@value makerGreen from '../../common/colors.module.css';
+
+.preview {
+  background-color: pink;
+  flex-basis: 50%;
+}
+
+.title {
+  text-align: center;
+  color: makerGreen;
+}

@@ -1,8 +1,21 @@
 @value makerWhite from '../../common/colors.module.css';
+@value mediaQuery from '../../common/size.module.css';
 
 .cards {
-  width: 90%;
+  width: 100%;
+  height: 100%;
   background-color: makerWhite;
   display: flex;
   flex-direction: column;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+}
+
+@media screen and (max-width: mediaQuery) {
+  .container {
+    flex-direction: column;
+  }
 }
