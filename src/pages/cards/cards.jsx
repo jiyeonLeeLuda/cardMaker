@@ -7,8 +7,8 @@ import Header from '../../components/header/header';
 import styles from './cards.module.css';
 
 const Cards = ({ authService }) => {
-  const [cards, setCards] = useState([
-    {
+  const [cards, setCards] = useState({
+    1: {
       id: '1',
       name: 'Jiyeon',
       company: 'Kakao',
@@ -19,7 +19,7 @@ const Cards = ({ authService }) => {
       fileName: null,
       fileURL: null,
     },
-    {
+    2: {
       id: '2',
       name: 'Jiyeon2',
       company: 'Kakao',
@@ -30,7 +30,7 @@ const Cards = ({ authService }) => {
       fileName: null,
       fileURL: null,
     },
-    {
+    3: {
       id: '3',
       name: 'Jiyeon3',
       company: 'Kakao',
@@ -41,7 +41,7 @@ const Cards = ({ authService }) => {
       fileName: null,
       fileURL: null,
     },
-  ]);
+  });
   const navi = useNavigate();
   const location = useLocation();
   console.log(location.state);
@@ -58,21 +58,31 @@ const Cards = ({ authService }) => {
         }
       });
   });
-  const onAdd = (card) => {
-    const updated = [...cards, card];
-    setCards(updated);
+  const AddOrUpdate = (card) => {
+    setCards((cards) => {
+      const updated = { ...cards };
+      updated[card.id] = card;
+      return updated;
+    });
   };
-
-  const onDelete = (id) => {
-    const updated = cards.filter((card) => card.id !== id);
-    setCards(updated);
+  const onDelete = (card) => {
+    setCards((cards) => {
+      const updated = { ...cards };
+      delete updated[card.id];
+      return updated;
+    });
   };
 
   return (
     <section className={styles.cards}>
       <Header onLogout={onLogout} />
       <div className={styles.container}>
-        <Editor cards={cards} onAdd={onAdd} onDelete={onDelete} />
+        <Editor
+          cards={cards}
+          onAdd={AddOrUpdate}
+          onUpdate={AddOrUpdate}
+          onDelete={onDelete}
+        />
         <Preview cards={cards} />
       </div>
       <Footer />
