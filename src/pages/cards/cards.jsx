@@ -63,11 +63,16 @@ const Cards = ({ authService }) => {
     setCards(updated);
   };
 
+  const onDelete = (id) => {
+    const updated = cards.filter((card) => card.id !== id);
+    setCards(updated);
+  };
+
   return (
     <section className={styles.cards}>
       <Header onLogout={onLogout} />
       <div className={styles.container}>
-        <Editor cards={cards} onAdd={onAdd} />
+        <Editor cards={cards} onAdd={onAdd} onDelete={onDelete} />
         <Preview cards={cards} />
       </div>
       <Footer />
