@@ -3,10 +3,12 @@ import styles from './card-edit-form.module.css';
 import ImageFileInput from '../img-file-input/img-file-input';
 import Button from '../button/button';
 
-const CardEditForm = ({ card }) => {
-  const { name, company, title, email, message, theme, fileName, fileURL } =
+const CardEditForm = ({ card, onDelete }) => {
+  const { id, name, company, title, email, message, theme, fileName, fileURL } =
     card;
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    onDelete(id);
+  };
   return (
     <form className={styles.form}>
       <input className={styles.input} type='text' name='name' value={name} />
