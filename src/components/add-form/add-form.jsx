@@ -3,7 +3,7 @@ import Button from '../button/button';
 import ImgFileInput from '../img-file-input/img-file-input';
 import styles from './add-form.module.css';
 
-const AddForm = ({ onAdd }) => {
+const AddForm = ({ addCard }) => {
   const formRef = useRef();
   const nameRef = useRef();
   const companyRef = useRef();
@@ -26,7 +26,7 @@ const AddForm = ({ onAdd }) => {
     };
 
     formRef.current.reset();
-    onAdd(card);
+    addCard(card);
   };
   return (
     <form ref={formRef} className={styles.form}>
