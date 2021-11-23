@@ -58,11 +58,16 @@ const Cards = ({ authService }) => {
         }
       });
   });
+  const onAdd = (card) => {
+    const updated = [...cards, card];
+    setCards(updated);
+  };
+
   return (
     <section className={styles.cards}>
       <Header onLogout={onLogout} />
       <div className={styles.container}>
-        <Editor cards={cards} />
+        <Editor cards={cards} onAdd={onAdd} />
         <Preview cards={cards} />
       </div>
       <Footer />
