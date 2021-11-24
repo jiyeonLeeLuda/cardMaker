@@ -1,0 +1,6 @@
+@value makerLightPink from '../../common/colors.module.css';
+.fileInput {
+  width: 100%;
+  height: 100%;
+  background-color: makerLightPink;
+}

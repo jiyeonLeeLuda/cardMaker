@@ -3,7 +3,7 @@ import styles from './card-edit-form.module.css';
 import ImageFileInput from '../img-file-input/img-file-input';
 import Button from '../button/button';
 
-const CardEditForm = ({ card, deleteCard, updateCard }) => {
+const CardEditForm = ({ card, deleteCard, updateCard, imgUploadService }) => {
   const { name, company, title, email, message, theme, fileName, fileURL } =
     card;
   const onSubmit = () => {
@@ -66,7 +66,11 @@ const CardEditForm = ({ card, deleteCard, updateCard }) => {
         onChange={onChange}
       ></textarea>
       <div className={styles.fileInput}>
-        <ImageFileInput />
+        <ImageFileInput
+          imgUploadService={imgUploadService}
+          card={card}
+          updateCard={updateCard}
+        />
       </div>
 
       <Button name='Delete' onClick={onSubmit} />
