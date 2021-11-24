@@ -6,7 +6,7 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import styles from './cards.module.css';
 
-const Cards = ({ authService }) => {
+const Cards = ({ authService, imgUploadService }) => {
   const [cards, setCards] = useState({
     1: {
       id: '1',
@@ -82,6 +82,7 @@ const Cards = ({ authService }) => {
           onAdd={AddOrUpdate}
           onUpdate={AddOrUpdate}
           onDelete={onDelete}
+          imgUploadService={imgUploadService}
         />
         <Preview cards={cards} />
       </div>
