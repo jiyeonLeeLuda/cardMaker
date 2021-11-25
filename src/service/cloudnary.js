@@ -14,7 +14,7 @@ class Cloudnary {
 
     const res = await this.cloudnaryClient.post('image/upload', formData);
     if (res.status === 200) {
-      console.log(res);
+      //console.log(res);
       return res['data']['url'];
     } else {
       console.log('error', res);
