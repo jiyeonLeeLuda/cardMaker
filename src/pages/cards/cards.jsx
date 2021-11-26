@@ -1,3 +1,4 @@
+import { onValue, ref, set } from '@firebase/database';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import Editor from '../../components/card-editor/editor';
@@ -6,45 +7,13 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import styles from './cards.module.css';
 
-const Cards = ({ authService, FileInput }) => {
-  const [cards, setCards] = useState({
-    1: {
-      id: '1',
-      name: 'Jiyeon',
-      company: 'Kakao',
-      theme: 'light',
-      title: 'software engineer',
-      email: 'Jiyeon@gmail.com',
-      message: 'go for it ',
-      fileName: null,
-      fileURL: null,
-    },
-    2: {
-      id: '2',
-      name: 'Jiyeon2',
-      company: 'Kakao',
-      theme: 'colorful',
-      title: 'software engineer',
-      email: 'Jiyeon@gmail.com',
-      message: 'go for it ',
-      fileName: null,
-      fileURL: null,
-    },
-    3: {
-      id: '3',
-      name: 'Jiyeon3',
-      company: 'Kakao',
-      theme: 'dark',
-      title: 'software engineer',
-      email: 'Jiyeon@gmail.com',
-      message: 'go for it ',
-      fileName: null,
-      fileURL: null,
-    },
-  });
+const Cards = ({ authService, FileInput, db }) => {
+  const [cards, setCards] = useState({});
+  const [userId, setUserId] = useState('');
   const navi = useNavigate();
   const location = useLocation();
-  console.log(location.state);
+  const locationState = location.state;
+  locationState && setUserId(locationState.id);
   function onLogout() {
     authService //
       .logout()
@@ -53,17 +22,30 @@ const Cards = ({ authService, FileInput }) => {
   useEffect(() => {
     authService //
       .onAuthChange((user) => {
-        if (!user) {
+        if (user) {
+          setUserId(user.uid);
+        } else {
           navi('/');
         }
       });
   });
+
+  useEffect(() => {
+    const stopSync = db.syncCards(userId, (cards) => {
+      setCards(cards);
+    });
+    return () => {
+      stopSync();
+    };
+  }, [db, userId]);
   const AddOrUpdate = (card) => {
     setCards((cards) => {
       const updated = { ...cards };
       updated[card.id] = card;
       return updated;
     });
+    //db에 카드 저장.
+    db.saveCard(userId, card);
   };
   const onDelete = (card) => {
     setCards((cards) => {
@@ -71,6 +53,8 @@ const Cards = ({ authService, FileInput }) => {
       delete updated[card.id];
       return updated;
     });
+    //db에서 해당카드 제거
+    db.deleteCard(userId, card);
   };
 
   return (
