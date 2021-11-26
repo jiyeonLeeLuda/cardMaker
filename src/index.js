@@ -8,9 +8,10 @@ import AuthService from './service/firebase/auth';
 import { getDatabase } from 'firebase/database';
 import Cloudnary from './service/cloudnary';
 import ImgFileInput from './components/img-file-input/img-file-input';
+import DataBase from './service/firebase/db';
 
 const authService = new AuthService(firebaseApp);
-const db = getDatabase(firebaseApp);
+const db = new DataBase(firebaseApp);
 const imgUploadService = new Cloudnary(
   process.env.REACT_APP_CLOUDNARY_CLOUD_NAME,
   process.env.REACT_APP_CLOUDNARY_PRESET
