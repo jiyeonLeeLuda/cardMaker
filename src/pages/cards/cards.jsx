@@ -11,9 +11,10 @@ const Cards = ({ authService, FileInput, db }) => {
   const [cards, setCards] = useState({});
   const [userId, setUserId] = useState('');
   const navi = useNavigate();
-  const location = useLocation();
-  const locationState = location.state;
-  locationState && setUserId(locationState.id);
+  //무한로딩되어 주석처리.
+  // const location = useLocation();
+  // const locationState = location.state;
+  // locationState && setUserId(locationState.id);
   function onLogout() {
     authService //
       .logout()
@@ -28,7 +29,7 @@ const Cards = ({ authService, FileInput, db }) => {
           navi('/');
         }
       });
-  });
+  }, [authService, navi]);
 
   useEffect(() => {
     const stopSync = db.syncCards(userId, (cards) => {
